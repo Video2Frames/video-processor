@@ -14,7 +14,7 @@ class FrameProcessor(ABC):
     frames."""
 
     @abstractmethod
-    async def process_video(self, video_content: FileContent) -> FileContent:
+    def process_video(self, video_content: FileContent) -> FileContent:
         """Extract frames from the given video file and return information about the
         resulting ZIP file.
 
@@ -34,7 +34,7 @@ class EventPublisher(ABC):
     events."""
 
     @abstractmethod
-    async def publish(self, event: DomainEventT) -> None:
+    def publish(self, event: DomainEventT) -> None:
         """Publish a domain event.
 
         Args:
@@ -50,7 +50,7 @@ class StorageService(ABC):
     storage system."""
 
     @abstractmethod
-    async def download_file(self, source_path: str) -> FileContent:
+    def download_file(self, source_path: str) -> FileContent:
         """Download a file from the storage system.
 
         Args:
@@ -64,9 +64,7 @@ class StorageService(ABC):
         """
 
     @abstractmethod
-    async def upload_file(
-        self, file_content: FileContent, destination_path: str
-    ) -> None:
+    def upload_file(self, file_content: FileContent, destination_path: str) -> None:
         """Upload a file to the storage system.
 
         Args:

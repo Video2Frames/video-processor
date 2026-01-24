@@ -20,5 +20,5 @@ class FileContent(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    file_path: str
-    file_content: bytes
+    path: str
+    content: bytes
