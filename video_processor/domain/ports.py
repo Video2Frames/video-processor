@@ -45,9 +45,8 @@ class EventPublisher(ABC):
         """
 
 
-class StorageService(ABC):
-    """The StorageService port defines the interface for interacting with the
-    storage system."""
+class InputStorage(ABC):
+    """The storage port to interacting with the input storage system"""
 
     @abstractmethod
     def download_file(self, source_path: str) -> FileContent:
@@ -62,6 +61,10 @@ class StorageService(ABC):
         Raises:
             StorageError: If an error occurs during file download.
         """
+
+
+class OutputStorage(ABC):
+    """The storage port to interacting with the output storage system"""
 
     @abstractmethod
     def upload_file(self, file_content: FileContent, destination_path: str) -> None:

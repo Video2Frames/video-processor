@@ -10,7 +10,12 @@ from video_processor.domain.exceptions import (
     InvalidStatusTransitionError,
     StorageError,
 )
-from video_processor.domain.ports import EventPublisher, FrameProcessor, StorageService
+from video_processor.domain.ports import (
+    EventPublisher,
+    FrameProcessor,
+    InputStorage,
+    OutputStorage,
+)
 from video_processor.domain.value_objects import FileContent
 
 logger = logging.getLogger(__name__)
@@ -21,11 +26,13 @@ class ProcessVideoUseCase:
 
     def __init__(
         self,
-        storage_service: StorageService,
+        input_storage: InputStorage,
+        output_storage: OutputStorage,
         frame_processor: FrameProcessor,
         event_publisher: EventPublisher,
     ):
-        self._storage_service = storage_service
+        self._input_storage = input_storage
+        self._output_storage = output_storage
         self._frame_processor = frame_processor
         self._event_publisher = event_publisher
 
@@ -86,7 +93,7 @@ class ProcessVideoUseCase:
         """
 
         try:
-            video_content: FileContent = self._storage_service.download_file(
+            video_content: FileContent = self._input_storage.download_file(
                 video.upload_path
             )
 
@@ -142,7 +149,7 @@ class ProcessVideoUseCase:
         """
 
         try:
-            self._storage_service.upload_file(
+            self._output_storage.upload_file(
                 file_content=file_content, destination_path=video.output_path
             )
 
