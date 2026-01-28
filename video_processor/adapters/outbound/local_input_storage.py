@@ -5,6 +5,7 @@ import os
 from video_processor.domain.exceptions import StorageError
 from video_processor.domain.ports import InputStorage
 from video_processor.domain.value_objects import FileContent
+from video_processor.infrastructure.config import LocalInputStorageSettings
 
 
 class LocalInputStorage(InputStorage):
@@ -12,12 +13,11 @@ class LocalInputStorage(InputStorage):
     interacts with the local file system.
     """
 
-    def __init__(self, base_path: str):
-        self._base_path = base_path
+    def __init__(self, settings: LocalInputStorageSettings):
+        self._base_path = settings.BASE_PATH
 
     def download_file(self, source_path: str) -> FileContent:
         full_path = os.path.join(self._base_path, source_path)
-
         try:
             with open(full_path, "rb") as file:
                 content = file.read()

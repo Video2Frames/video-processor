@@ -1,0 +1,77 @@
+"""Application configuration module"""
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+ENV_FILE_PATH = "config/video_processor.env"
+ENV_FILE_ENCODING = "utf-8"
+
+
+class AWSSettings(BaseSettings):
+    """AWS integration settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="AWS_",
+        extra="ignore",
+    )
+
+    REGION_NAME: str = "us-east-1"
+    ACCOUNT_ID: str
+    ACCESS_KEY_ID: str
+    SECRET_ACCESS_KEY: str
+
+
+class VideoUploadedListenerSettings(BaseSettings):
+    """Video uploaded listener settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="VIDEO_UPLOADED_LISTENER_",
+        extra="ignore",
+    )
+
+    QUEUE_NAME: str = "video_processing"
+    WAIT_TIME_SECONDS: int = 20
+    MAX_NUMBER_OF_MESSAGES_PER_BATCH: int = 1
+    VISIBILITY_TIMEOUT_SECONDS: int = 300
+
+
+class LocalInputStorageSettings(BaseSettings):
+    """Local input storage settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="LOCAL_INPUT_STORAGE_",
+        extra="ignore",
+    )
+
+    BASE_PATH: str = "local_storage/input"
+
+
+class LocalOutputStorageSettings(BaseSettings):
+    """Local output storage settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="LOCAL_OUTPUT_STORAGE_",
+        extra="ignore",
+    )
+
+    BASE_PATH: str = "local_storage/output"
+
+
+class FrameProcessorSettings(BaseSettings):
+    """Frame processor settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="FRAME_PROCESSOR_",
+        extra="ignore",
+    )
+
+    MAX_FRAMES: int = 100

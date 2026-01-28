@@ -10,14 +10,15 @@ import numpy as np
 from video_processor.domain.exceptions import FrameProcessingError
 from video_processor.domain.ports import FrameProcessor
 from video_processor.domain.value_objects import FileContent
+from video_processor.infrastructure.config import FrameProcessorSettings
 
 
 class OpenCVFrameProcessor(FrameProcessor):
     """An implementation of the FrameProcessor port that uses OpenCV
     to extract frames"""
 
-    def __init__(self, max_frames: int | None = None):
-        self.max_frames = max_frames
+    def __init__(self, settings: FrameProcessorSettings):
+        self.max_frames = settings.MAX_FRAMES
 
     def process_video(self, video_content: FileContent) -> FileContent:
         temp_file_path = None
