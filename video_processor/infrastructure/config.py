@@ -64,6 +64,46 @@ class LocalOutputStorageSettings(BaseSettings):
     BASE_PATH: str = "local_storage/output"
 
 
+class S3InputStorageSettings(BaseSettings):
+    """S3 input storage settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="S3_INPUT_STORAGE_",
+        extra="ignore",
+    )
+
+    BUCKET_NAME: str
+
+
+class S3OutputStorageSettings(BaseSettings):
+    """S3 output storage settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="S3_OUTPUT_STORAGE_",
+        extra="ignore",
+    )
+
+    BUCKET_NAME: str
+
+
+class SnsEventPublisherSettings(BaseSettings):
+    """SNS event publisher settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="SNS_EVENT_PUBLISHER_",
+        extra="ignore",
+    )
+
+    TOPIC_ARN: str
+    GROUP_ID: str = "videos"
+
+
 class FrameProcessorSettings(BaseSettings):
     """Frame processor settings"""
 

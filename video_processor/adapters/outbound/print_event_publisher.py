@@ -9,9 +9,4 @@ class PrintEventPublisher(EventPublisher):
     console."""
 
     def publish(self, event: DomainEventT) -> None:
-        """Publish a domain event by printing it to the console.
-
-        Args:
-            event: The domain event to be published.
-        """
         print(f"Event published: {event.model_dump_json()}")

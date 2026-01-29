@@ -31,6 +31,14 @@ class DomainEvent(BaseModel):
         """
         return self.__class__.__name__
 
+    def get_event_type(self) -> str:
+        """Get the type of the event for categorization
+
+        Returns:
+            str: The type of the event
+        """
+        return "domain.event"
+
 
 class VideoStatusEvent(DomainEvent):
     """Base class for video status change events"""
@@ -48,6 +56,14 @@ class VideoProcessingStartedEvent(VideoStatusEvent):
         description="The timestamp when the video processing started.",
     )
 
+    def get_event_type(self) -> str:
+        """Get the type of the event for categorization
+
+        Returns:
+            str: The type of the event
+        """
+        return "video.processing_started"
+
 
 class VideoProcessedEvent(VideoStatusEvent):
     """Event representing that a video has been processed"""
@@ -62,6 +78,14 @@ class VideoProcessedEvent(VideoStatusEvent):
         description="The timestamp when the video was processed.",
     )
 
+    def get_event_type(self) -> str:
+        """Get the type of the event for categorization
+
+        Returns:
+            str: The type of the event
+        """
+        return "video.processed"
+
 
 class VideoProcessingFailedEvent(VideoStatusEvent):
     """Event representing that a video processing has failed"""
@@ -72,3 +96,11 @@ class VideoProcessingFailedEvent(VideoStatusEvent):
     )
 
     error_message: str = Field(..., description="Error message describing the failure.")
+
+    def get_event_type(self) -> str:
+        """Get the type of the event for categorization
+
+        Returns:
+            str: The type of the event
+        """
+        return "video.processing_failed"
