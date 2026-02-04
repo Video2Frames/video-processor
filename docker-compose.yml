@@ -1,0 +1,23 @@
+services:
+  video_uploaded_listener:
+    container_name: video-uploaded-listener
+    image: video-uploaded-listener:dev
+    restart: always
+    build:
+      context: .
+      target: development
+    volumes:
+      - ./video_processor:/app/video_processor
+      # - ./tests:/app/tests
+      - ./docker-entrypoint:/app/docker-entrypoint
+      - ./logging.ini:/app/logging.ini
+      # - ./pytest.ini:/app/pytest.ini
+      # - ./.coveragerc:/app/.coveragerc
+    env_file:
+      - ./config/video_processor.env
+    networks:
+      - soat-hackathon-video-processor
+
+networks:
+  soat-hackathon-video-processor:
+    driver: bridge
