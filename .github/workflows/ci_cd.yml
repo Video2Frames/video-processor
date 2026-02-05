@@ -81,3 +81,4 @@ jobs:
       - name: Apply Deployment
         run: |
           kubectl apply -f k8s/deployment.yml
+          kubectl rollout restart deployment/video-uploaded-listener -n video2frames
