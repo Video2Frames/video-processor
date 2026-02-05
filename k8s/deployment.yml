@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-uploaded-listener
+  namespace: video2frame
+  labels:
+    app: video-uploaded-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: video-uploaded-listener
+  template:
+    metadata:
+      labels:
+        app: video-uploaded-listener
+    spec:
+      containers:
+        - name: video-uploaded-listener
+          image: public.ecr.aws/w8m5i3n3/video2frames-video-processor:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: video-processor-config
+            - secretRef:
+                name: video-processor-secrets

@@ -56,8 +56,6 @@ COPY --chown=${USER_UID}:${USER_UID} ./docker-entrypoint ./docker-entrypoint
 COPY --chown=${USER_UID}:${USER_UID} ./video_processor ./video_processor
 COPY --chown=${USER_UID}:${USER_UID} ./logging.ini ./logging.ini
 
-EXPOSE 8000
-
 ENTRYPOINT ["sh", "/app/docker-entrypoint/start_video_uploaded_listener.sh"]
 
 # Development/Test runtime
@@ -95,7 +93,5 @@ COPY --chown=${USER_UID}:${USER_UID} ./logging.ini ./logging.ini
 # COPY --chown=${USER_UID}:${USER_UID} ./pytest.ini ./pytest.ini
 COPY --chown=${USER_UID}:${USER_UID} ./pyproject.toml ./pyproject.toml
 # COPY --chown=${USER_UID}:${USER_UID} ./.coveragerc ./.coveragerc
-
-EXPOSE 8000
 
 ENTRYPOINT ["sh", "/app/docker-entrypoint/start_video_uploaded_listener.sh"]
