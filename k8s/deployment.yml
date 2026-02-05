@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: video-uploaded-listener
-  namespace: video2frame
+  namespace: video2frames
   labels:
     app: video-uploaded-listener
 spec:

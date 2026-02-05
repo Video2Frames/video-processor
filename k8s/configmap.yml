@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: video-processor-config
-  namespace: video2frame
+  namespace: video2frames
 data:
   AWS_REGION_NAME: "${AWS_REGION_NAME}"
   S3_INPUT_STORAGE_BUCKET_NAME: "${S3_INPUT_STORAGE_BUCKET_NAME}"
