@@ -40,3 +40,27 @@ class FrameProcessingError(VideoProcessorError):
 
 class EventPublishingError(VideoProcessorError):
     """Exception for EventPublisher port errors."""
+
+
+class VideoMetadataReadingError(VideoProcessorError):
+    """Exception for errors that occur while reading video metadata."""
+
+
+class VideoValidationError(VideoProcessorError):
+    """Exception for errors that occur while validating video metadata."""
+
+
+class FrameSelectionError(VideoProcessorError):
+    """Exception for errors that occur while selecting frames."""
+
+
+class FrameExtractionError(VideoProcessorError):
+    """Exception for errors that occur while extracting frames."""
+
+
+class FramePackagingError(VideoProcessorError):
+    """Exception for errors that occur while packaging frames."""
+
+
+class TempFileManagerError(VideoProcessorError):
+    """Exception for errors that occur while managing temporary files."""

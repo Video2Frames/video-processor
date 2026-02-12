@@ -104,14 +104,27 @@ class SnsEventPublisherSettings(BaseSettings):
     GROUP_ID: str = "videos"
 
 
-class FrameProcessorSettings(BaseSettings):
-    """Frame processor settings"""
+class UniformFrameSelectorSettings(BaseSettings):
+    """Uniform frame selector settings"""
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE_PATH,
         env_file_encoding=ENV_FILE_ENCODING,
-        env_prefix="FRAME_PROCESSOR_",
+        env_prefix="UNIFORM_FRAME_SELECTOR_",
         extra="ignore",
     )
 
-    MAX_FRAMES: int = 100
+    PORCENTAGE_THRESHOLD: float = 0.01
+
+
+class VideoValidatorsSettings(BaseSettings):
+    """Video validators settings"""
+
+    model_config = SettingsConfigDict(
+        env_file=ENV_FILE_PATH,
+        env_file_encoding=ENV_FILE_ENCODING,
+        env_prefix="VIDEO_VALIDATORS_",
+        extra="ignore",
+    )
+
+    MAX_SIZE_IN_BYTES: int = 50 * 1024 * 1024  # 50 MB limit
