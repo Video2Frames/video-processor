@@ -40,6 +40,10 @@ class OpenCVFrameExtractor(FrameExtractor):
                     filename=f"frame_{frame_index}.jpg",
                     content=buffer.tobytes(),
                 )
+        except cv2.error as exc:
+            raise FrameExtractionError(
+                f"An error occurred during frame extraction: {exc}"
+            ) from exc
         finally:
             if capture is not None:
                 capture.release()
