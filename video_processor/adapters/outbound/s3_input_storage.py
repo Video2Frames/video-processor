@@ -2,6 +2,7 @@
 
 from boto3 import Session
 from boto3.exceptions import Boto3Error
+from botocore.errorfactory import ClientError
 
 from video_processor.domain.exceptions import StorageError
 from video_processor.domain.ports import InputStorage
@@ -25,5 +26,5 @@ class S3InputStorage(InputStorage):
             )
             content = response["Body"].read()
             return FileContent(path=source_path, content=content)
-        except Boto3Error as e:
+        except (Boto3Error, ClientError) as e:
             raise StorageError(f"Failed to download file from S3: {e}") from e

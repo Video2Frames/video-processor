@@ -2,6 +2,7 @@
 
 from boto3 import Session
 from boto3.exceptions import Boto3Error
+from botocore.errorfactory import ClientError
 
 from video_processor.domain.exceptions import StorageError
 from video_processor.domain.ports import OutputStorage
@@ -25,5 +26,5 @@ class S3OutputStorage(OutputStorage):
                 Key=destination_path,
                 Body=file_content.content,
             )
-        except Boto3Error as e:
+        except (Boto3Error, ClientError) as e:
             raise StorageError(f"Failed to upload file to S3: {e}") from e
