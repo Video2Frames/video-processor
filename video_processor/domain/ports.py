@@ -15,26 +15,6 @@ from .value_objects import (
 DomainEventT = TypeVar("DomainEventT", bound=DomainEvent)
 
 
-class FrameProcessor(ABC):
-    """The FrameProcessor port defines the interface for processing videos into
-    frames."""
-
-    @abstractmethod
-    def process_video(self, video_content: FileContent) -> FileContent:
-        """Extract frames from the given video file and return information about the
-        resulting ZIP file.
-
-        Args:
-            video_content (FileContent): The content of the video file.
-
-        Returns:
-            FileContent: The content and path of the resulting ZIP file.
-
-        Raises:
-            FrameProcessingError: If an error occurs during frame extraction.
-        """
-
-
 class EventPublisher(ABC):
     """The EventPublisher port defines the interface for publishing domain
     events."""

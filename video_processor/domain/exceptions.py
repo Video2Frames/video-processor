@@ -34,10 +34,6 @@ class StorageError(VideoProcessorError):
     """Exception for StorageService port errors."""
 
 
-class FrameProcessingError(VideoProcessorError):
-    """Exception for FrameProcessor port errors."""
-
-
 class EventPublishingError(VideoProcessorError):
     """Exception for EventPublisher port errors."""
 
