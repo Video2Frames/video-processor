@@ -127,4 +127,4 @@ class VideoValidatorsSettings(BaseSettings):
         extra="ignore",
     )
 
-    MAX_SIZE_IN_BYTES: int = 100 * 1024 * 1024  # 100 MB limit
+    MAX_SIZE_IN_BYTES: int = 250 * 1024 * 1024  # 250 MB limit
