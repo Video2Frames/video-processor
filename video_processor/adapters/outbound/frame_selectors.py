@@ -8,16 +8,25 @@ class UniformFrameSelector(FrameSelector):
     """A frame selector that selects frames uniformly across the video duration"""
 
     def __init__(self, settings: UniformFrameSelectorSettings):
-        self.porcentage_threshold = settings.PORCENTAGE_THRESHOLD
+        self.percentage_threshold = settings.PERCENTAGE_THRESHOLD
 
     def select(self, metadata: VideoMetadata) -> FrameSelection:
-        if self.porcentage_threshold <= 0 or self.porcentage_threshold > 1:
-            raise FrameSelectionError("porcentage_threshold must be between 0 and 1")
+        if self.percentage_threshold <= 0 or self.percentage_threshold > 1:
+            raise FrameSelectionError("percentage_threshold must be between 0 and 1")
 
         total_frames = metadata.frame_count
         if total_frames == 0:
             raise FrameSelectionError("Video has no frames to select")
 
-        step = max(1, int(1 / self.porcentage_threshold))
-        selected_frames = list(range(0, total_frames, step))
-        return FrameSelection(indexes=selected_frames)
+        desired_count = max(1, int(total_frames * self.percentage_threshold))
+        # If the desired count is 1, we can just select the first frame to
+        # avoid division by zero in the calculation of indexes
+        if desired_count == 1:
+            return FrameSelection(indexes=[0])
+
+        indexes = [
+            int(i * (total_frames - 1) / (desired_count - 1))
+            for i in range(desired_count)
+        ]
+
+        return FrameSelection(indexes=indexes)

@@ -38,32 +38,6 @@ class VideoUploadedListenerSettings(BaseSettings):
     VISIBILITY_TIMEOUT_SECONDS: int = 300
 
 
-class LocalInputStorageSettings(BaseSettings):
-    """Local input storage settings"""
-
-    model_config = SettingsConfigDict(
-        env_file=ENV_FILE_PATH,
-        env_file_encoding=ENV_FILE_ENCODING,
-        env_prefix="LOCAL_INPUT_STORAGE_",
-        extra="ignore",
-    )
-
-    BASE_PATH: str = "local_storage/input"
-
-
-class LocalOutputStorageSettings(BaseSettings):
-    """Local output storage settings"""
-
-    model_config = SettingsConfigDict(
-        env_file=ENV_FILE_PATH,
-        env_file_encoding=ENV_FILE_ENCODING,
-        env_prefix="LOCAL_OUTPUT_STORAGE_",
-        extra="ignore",
-    )
-
-    BASE_PATH: str = "local_storage/output"
-
-
 class S3InputStorageSettings(BaseSettings):
     """S3 input storage settings"""
 
@@ -114,7 +88,7 @@ class UniformFrameSelectorSettings(BaseSettings):
         extra="ignore",
     )
 
-    PORCENTAGE_THRESHOLD: float = 0.01
+    PERCENTAGE_THRESHOLD: float = 0.01
 
 
 class VideoValidatorsSettings(BaseSettings):

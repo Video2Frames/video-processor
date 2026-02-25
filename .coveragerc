@@ -1,0 +1,6 @@
+[run]
+relative_files = true
+source = video_processor
+
+[xml]
+output = coverage.xml

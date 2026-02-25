@@ -221,6 +221,3 @@ terraform.rc
 
 # Ignore Terraform backend configuration files
 backend.hcl
-
-# Ignore local storage directory
-local_storage/
