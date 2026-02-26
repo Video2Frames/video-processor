@@ -5,6 +5,7 @@ import uuid
 
 from boto3 import Session
 from boto3.exceptions import Boto3Error
+from botocore.errorfactory import ClientError
 
 from video_processor.domain.exceptions import EventPublishingError
 from video_processor.domain.ports import DomainEventT, EventPublisher
@@ -36,5 +37,5 @@ class SnsEventPublisher(EventPublisher):
                     }
                 },
             )
-        except Boto3Error as e:
+        except (Boto3Error, ClientError) as e:
             raise EventPublishingError(f"Failed to publish event to SNS: {e}") from e
