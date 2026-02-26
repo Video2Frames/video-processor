@@ -1,4 +1,4 @@
-from video_processor.domain.exceptions import VideoMetadataReadingError
+from video_processor.domain.exceptions import VideoValidationError
 from video_processor.domain.ports import VideoMetadata
 from video_processor.infrastructure.config import VideoValidatorsSettings
 
@@ -17,11 +17,11 @@ class VideoSizeValidator:
                 validated.
 
         Raises:
-            VideoMetadataReadingError: If the size of the video file exceeds the
+            VideoValidationError: If the size of the video file exceeds the
                 maximum allowed size.
         """
         if video_metadata.size_in_bytes > self.max_size_in_bytes:
-            raise VideoMetadataReadingError(
+            raise VideoValidationError(
                 f"Video file size {video_metadata.size_in_bytes} bytes exceeds the "
                 f"maximum allowed size of {self.max_size_in_bytes} bytes."
             )
