@@ -117,8 +117,8 @@ def test_should_fail_processing_if_status_is_processing():
     assert events[0].error_message == "An error occurred"
 
 
-def test_should_not_fail_processing_if_status_is_not_processing():
-    """Given a video with a status other than PROCESSING
+def test_should_not_fail_processing_if_status_is_not_processing_or_pending():
+    """Given a video with a status other than PROCESSING or PENDING
     When fail_processing is called
     Then an InvalidStatusTransitionError should be raised
     """
@@ -126,12 +126,12 @@ def test_should_not_fail_processing_if_status_is_not_processing():
     # Given
     video_id = UUID("12345678-1234-5678-1234-567812345678")
     video = Video(video_id=video_id, upload_path="/path/to/video.mp4")
-    video._status = VideoProcessingStatus.PENDING
+    video._status = VideoProcessingStatus.COMPLETED
 
     # When / Then
     with pytest.raises(InvalidStatusTransitionError) as exc_info:
         video.fail_processing(error_message="An error occurred")
 
     assert str(exc_info.value) == (
-        f"Invalid status transition for video {video_id}: PENDING -> FAILED"
+        f"Invalid status transition for video {video_id}: COMPLETED -> FAILED"
     )

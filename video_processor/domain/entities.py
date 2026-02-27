@@ -113,7 +113,10 @@ class Video(BaseModel):
     def fail_processing(self, error_message: str) -> None:
         """Set the video status to FAILED."""
 
-        if self._status != VideoProcessingStatus.PROCESSING:
+        if self._status not in [
+            VideoProcessingStatus.PENDING,
+            VideoProcessingStatus.PROCESSING,
+        ]:
             raise InvalidStatusTransitionError(
                 self.video_id, self._status, VideoProcessingStatus.FAILED
             )
