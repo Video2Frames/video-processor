@@ -35,7 +35,7 @@ def test_should_select_20_frames_for_200_frames_with_10_percent_threshold(
     assert isinstance(selection, FrameSelection)
     assert len(selection.indexes) == 20
     assert selection.indexes[0] == 0
-    assert selection.indexes[-1] == 500
+    assert selection.indexes[-1] == 199
 
 
 def test_should_select_first_frame_if_total_frames_is_1(mocker: MockerFixture):
