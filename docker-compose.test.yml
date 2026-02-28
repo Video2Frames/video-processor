@@ -1,0 +1,8 @@
+services:
+  video_uploaded_listener:
+    container_name: video-uploaded-listener
+    image: video-uploaded-listener:dev
+    entrypoint: ["tail", "-f", "/dev/null"]
+    build:
+      context: .
+      target: development

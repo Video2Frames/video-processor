@@ -7,9 +7,44 @@ env:
   APP_IMAGE: "public.ecr.aws/w8m5i3n3/video2frames-video-processor:latest"
 
 jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@v1
+        with:
+          version: latest
+
+      - name: Build application for testing
+        run: docker compose -f docker-compose.test.yml build --no-cache video_uploaded_listener
+
+      - name: Start test services
+        run: docker compose -f docker-compose.test.yml up -d
+
+      - name: Run tests
+        run: docker compose -f docker-compose.test.yml exec video_uploaded_listener pytest
+
+      - name: Copy coverage report
+        run: docker cp video-uploaded-listener:/app/coverage.xml ./coverage.xml
+
+      - name: Destroy test services
+        run: docker compose -f docker-compose.test.yml down -v
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ./coverage.xml
+
   build_and_push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    needs: test
     if: github.ref == 'refs/heads/main' && github.repository == 'Video2Frames/video-processor'
 
     steps:
