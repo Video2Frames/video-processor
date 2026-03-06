@@ -72,7 +72,7 @@ def test_should_complete_processing_if_status_is_processing():
     assert video.status == VideoProcessingStatus.COMPLETED
     assert len(events) == 1
     assert events[0].video_id == video_id
-    assert events[0].output_path == f"{video_id}.zip"
+    assert events[0].output_path == f"s3://video2frames-extracted-frames/{video_id}.zip"
 
 
 def test_should_not_complete_processing_if_status_is_not_processing():

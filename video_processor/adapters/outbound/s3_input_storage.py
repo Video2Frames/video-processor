@@ -20,6 +20,7 @@ class S3InputStorage(InputStorage):
         self._s3_client = boto_session.client("s3")
 
     def download_file(self, source_path: str) -> FileContent:
+        source_path = source_path.replace(f"s3://{self._bucket_name}/", "")
         try:
             response = self._s3_client.get_object(
                 Bucket=self._bucket_name, Key=source_path

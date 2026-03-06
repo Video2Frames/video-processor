@@ -113,9 +113,9 @@ def test_should_process_video(mocker: MockerFixture):
     frame_selector_mock.select.assert_called_once_with(metadata)
     frame_extractor_mock.extract.assert_called_once_with(temp_file, frame_selection)
     frame_packager.package.assert_called_once_with(frames_iter)
+    dp = f"s3://video2frames-extracted-frames/{video_id}.zip"
     output_storage_mock.upload_file.assert_called_once_with(
-        file_content=zip_file,
-        destination_path="12345678-1234-5678-1234-567812345678.zip",
+        file_content=zip_file, destination_path=dp
     )
 
     temp_file_manager.delete.assert_called_once_with(temp_file)
@@ -818,9 +818,10 @@ def test_should_fail_with_upload_output_file_error(mocker: MockerFixture):
     frame_selector_mock.select.assert_called_once_with(metadata)
     frame_extractor_mock.extract.assert_called_once_with(temp_file, frame_selection)
     frame_packager.package.assert_called_once_with(frames_iter)
+    dp = f"s3://video2frames-extracted-frames/{video_id}.zip"
     output_storage_mock.upload_file.assert_called_once_with(
         file_content=zip_file,
-        destination_path="12345678-1234-5678-1234-567812345678.zip",
+        destination_path=dp,
     )
 
     temp_file_manager.delete.assert_called_once_with(temp_file)
@@ -930,9 +931,10 @@ def test_should_raises_invalid_transition_error_when_completing_processing(
     frame_selector_mock.select.assert_called_once_with(metadata)
     frame_extractor_mock.extract.assert_called_once_with(temp_file, frame_selection)
     frame_packager.package.assert_called_once_with(frames_iter)
+    dp = f"s3://video2frames-extracted-frames/{video_id}.zip"
     output_storage_mock.upload_file.assert_called_once_with(
         file_content=zip_file,
-        destination_path="12345678-1234-5678-1234-567812345678.zip",
+        destination_path=dp,
     )
 
     complete_processing_mock.assert_called_once_with()
@@ -1091,9 +1093,10 @@ def test_should_not_fail_with_temp_file_deletion_error(mocker: MockerFixture):
     frame_selector_mock.select.assert_called_once_with(metadata)
     frame_extractor_mock.extract.assert_called_once_with(temp_file, frame_selection)
     frame_packager.package.assert_called_once_with(frames_iter)
+    dp = f"s3://video2frames-extracted-frames/{video_id}.zip"
     output_storage_mock.upload_file.assert_called_once_with(
         file_content=zip_file,
-        destination_path="12345678-1234-5678-1234-567812345678.zip",
+        destination_path=dp,
     )
 
     temp_file_manager.delete.assert_called_once_with(temp_file)

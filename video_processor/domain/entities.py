@@ -53,7 +53,7 @@ class Video(BaseModel):
     @property
     def output_path(self) -> str:
         """Get the output path where processed frames will be stored."""
-        return f"{self.video_id}.zip"
+        return f"s3://video2frames-extracted-frames/{self.video_id}.zip"
 
     @property
     def status(self) -> VideoProcessingStatus:
